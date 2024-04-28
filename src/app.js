@@ -15,7 +15,7 @@ app.use(userRouter)
 app.use(patientRouter)
 app.use(assistantRouter)
 app.use((error, req, res, next) => {
-    return res.send({ status: error.status, message: error.message, code: error.code, stack: error.stack })
+    res.status(500).send({ status: error.status, message: error.message, code: error.code, stack: error.stack })
 })
 
 app.listen(port, () => {
