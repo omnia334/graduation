@@ -2,9 +2,10 @@ const express = require('express')
 const app = express()
 const port = process.env.port || 3000
 const env = require('dotenv').config()
+const cores = require("cors")
 require('./db/mongoose')
 app.use(express.json())
-
+app.use(cors())
 const userRouter = require('./routers/user')
 const patientRouter = require('./routers/patient')
 const assistantRouter = require('./routers/assistant')
