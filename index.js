@@ -14,9 +14,9 @@ const assistantRouter = require('./src/routers/assistant')
 app.use(userRouter)
 app.use(patientRouter)
 app.use(assistantRouter)
-app.all('*', (req, res, next) => {
-    res.status(500).send({ status: "fail", message: "this route not defined" })
-})
+// app.all('*', (req, res, next) => {
+//     res.status(500).send({ status: "fail", message: "this route not defined" })
+// })
 app.use((error, req, res, next) => {
     res.status(500).send({ status: error.status, message: error.message, code: error.code, stack: error.stack })
 })
