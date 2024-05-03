@@ -1,15 +1,19 @@
 const doctorModel = require('../models/doctor')
 const tasksModel = require('../models/tasks')
 const cloudinary = require('../utils/cloudinary')
+const mongoose = require('mongoose')
 
 const errorHandler = require('../middelware/errorHandler')
 const appError = require('../utils/appError')
+const assistant = require('../models/assistant')
 
 // add doctor
 const addDoctor = errorHandler(
     async (req, res, next) => {
         const patientId = req.params.id
-        if (!patientId) {
+        const ID =new mongoose.Types.ObjectId(patientId)
+        const findPatient = await assistant.findOne({"patients":{$in:[ID]}})
+        if (!findPatient) {
             const error = appError.Error('patient not exist', 400, 'fail')
             return next(error)
         }
@@ -122,7 +126,9 @@ const deleteDoctors = errorHandler(
 const addTasks = errorHandler(
     async (req, res, next) => {
         const patientId = req.params.id
-        if (!patientId) {
+        const ID =new mongoose.Types.ObjectId(patientId)
+        const findPatient = await assistant.findOne({"patients":{$in:[ID]}})
+        if (!findPatient) {
             const error = appError.Error('patient not exist', 400, 'fail')
             return next(error)
         }
