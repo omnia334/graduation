@@ -80,7 +80,6 @@ const updateUserFunc = errorHandler(
 
         const _id = req.user._id
         const user = await User.findById(_id)
-
         updates.forEach(el => user[el] = req.body[el])
 
         if (!user) {
@@ -93,6 +92,7 @@ const updateUserFunc = errorHandler(
 
     }
 )
+
 const deleteUserFunc = errorHandler(
     async (req, res, next) => {
         const _id = req.user._id
