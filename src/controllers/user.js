@@ -77,19 +77,15 @@ const getUserByIdFunc = errorHandler(
 const updateUserFunc = errorHandler(
     async (req, res, next) => {
         const updates = Object.keys(req.body)
-
         const _id = req.user._id
         const user = await User.findById(_id)
         updates.forEach(el => user[el] = req.body[el])
-
         if (!user) {
             const error = appError.Error('not update user', 400, 'fail')
             return next(error)
-
         }
         await user.save()
         res.status(200).send({ status: 'suceess', data: user })
-
     }
 )
 

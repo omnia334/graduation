@@ -26,9 +26,9 @@ router.get('/user/profile', auth.user, userProfile)
 router.get('/user/:id', getUserByIdFunc)
 
 // // update
-router.patch('/user/:id', auth.user, updateUserFunc)  //error
+router.patch('/user', auth.user, updateUserFunc)  //error
 //delete
-router.delete('/user/:id', auth.user, deleteUserFunc)
+router.delete('/user', auth.user, deleteUserFunc)
 router.post('/login', loginFunc)   //error
 
 
