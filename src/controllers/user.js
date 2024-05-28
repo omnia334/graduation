@@ -2,7 +2,6 @@ const User = require('../models/user')
 const errorHandler = require('../middelware/errorHandler')
 const appError = require('../utils/appError')
 const cloudinary = require('../utils/cloudinary')
-
 // signup function
 const singUpFunc = errorHandler(
     async (req, res, next) => {
@@ -14,7 +13,8 @@ const singUpFunc = errorHandler(
             return next(error)
         }
         await user.save()
-        res.status(200).send({ status: 'success', data: { user, token } })
+        
+        res.status(200).send({ status: true, data: { user, token } })
 
     }
 )
@@ -35,7 +35,7 @@ const loginFunc = errorHandler(
             return next(error)
         }
 
-        res.status(200).send({ status: 'success', data: { user, token } })
+        res.status(200).send({ status: true, data: { user, token } })
 
     }
 )
