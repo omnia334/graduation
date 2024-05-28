@@ -27,7 +27,7 @@ const addDoctor = errorHandler(
             return next(error)
         }
         await add.save()
-        res.status(200).send({ status: 'success', data: add })
+        res.status(200).send({ status: true, data: add })
     }
 )
 // all doctors for patient
@@ -46,7 +46,7 @@ const getDoctors = errorHandler(
             const error = appError.Error('doctors not fonded', 400, 'fail')
             return next(error)
         }
-        res.status(200).send({ status: 'success', data: doctors })
+        res.status(200).send({ status: true, data: doctors })
     }
 )
 // get doctor for patient
@@ -63,7 +63,7 @@ const getDoctor = errorHandler(
             const error = appError.Error('doctor not fonded', 400, 'fail')
             return next(error)
         }
-        res.status(200).send({ status: 'success', data: doctor })
+        res.status(200).send({ status: true, data: doctor })
     }
 )
 // delete doctor for patient
@@ -80,7 +80,7 @@ const deleteDoctor = errorHandler(
             const error = appError.Error('doctor not fonded', 400, 'fail')
             return next(error)
         }
-        res.status(200).send({ status: 'success', data: doctor })
+        res.status(200).send({ status: true, data: doctor })
     }
 )
 // update doctor
@@ -97,7 +97,7 @@ const updateDoctor = errorHandler(
             const error = appError.Error('doctor not updated', 400, 'fail')
             return next(error)
         }
-        res.status(200).send({ status: 'success', data: doctor })
+        res.status(200).send({ status: true, data: doctor })
     }
 )
 // delete all doctors for patient
@@ -115,7 +115,7 @@ const deleteDoctors = errorHandler(
             const error = appError.Error('doctors not fonded', 400, 'fail')
             return next(error)
         }
-        res.status(200).send({ status: 'success', data: doctors })
+        res.status(200).send({ status: true, data: doctors })
     }
 )
 // add tasks
@@ -139,7 +139,7 @@ const addTasks = errorHandler(
             return next(error)
         }
         await add.save()
-        res.status(200).send({ status: 'success', data: add })
+        res.status(200).send({ status: true, data: add })
     }
 )
 // all tasks for patient
@@ -158,7 +158,7 @@ const getTasks = errorHandler(
             const error = appError.Error('tasks not fonded', 400, 'fail')
             return next(error)
         }
-        res.status(200).send({ status: 'success', data: tasks })
+        res.status(200).send({ status: true, data: tasks })
     }
 )
 // get task for patient
@@ -175,7 +175,7 @@ const getTask = errorHandler(
             const error = appError.Error('task not fonded', 400, 'fail')
             return next(error)
         }
-        res.status(200).send({ status: 'success', data: task })
+        res.status(200).send({ status: true, data: task })
     }
 )
 // delete task for patient
@@ -192,7 +192,7 @@ const deleteTask = errorHandler(
             const error = appError.Error('task not fonded', 400, 'fail')
             return next(error)
         }
-        res.status(200).send({ status: 'success', data: task })
+        res.status(200).send({ status: true, data: task })
     }
 )
 // update task
@@ -209,7 +209,7 @@ const updateTask = errorHandler(
             const error = appError.Error('task not updated', 400, 'fail')
             return next(error)
         }
-        res.status(200).send({ status: 'success', data: task })
+        res.status(200).send({ status: true, data: task })
     }
 )
 // delete all doctors for patient
@@ -227,7 +227,7 @@ const deleteTasks = errorHandler(
             const error = appError.Error('tasks not fonded', 400, 'fail')
             return next(error)
         }
-        res.status(200).send({ status: 'success', data: tasks })
+        res.status(200).send({ status: true, data: tasks })
     }
 )
 module.exports = {
