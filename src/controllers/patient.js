@@ -98,7 +98,7 @@ const addAssistant = errorHandler(
             const error = appError.Error('assistant not added', 400, 'fail')
             return next(error)
         }
-        res.status(200).send({ status: 'success', data: addAss })
+        res.status(200).send({ status: true, data: addAss })
     }
 )
 // delete assistant in patieny model
@@ -113,7 +113,7 @@ const deleteAssistant = errorHandler(
             const error = appError.Error('assistant not delete', 400, 'fail')
             return next(error)
         }
-        res.status(200).send({ status: 'success', data: deleteAss })
+        res.status(200).send({ status: true, data: deleteAss })
     }
 )
 >>>>>>> 380e02445241125ba8330746232d159e785c3999
