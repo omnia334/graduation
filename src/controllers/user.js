@@ -25,7 +25,7 @@ const profileImg = errorHandler(
             { folder: `graduation/user/id_${req.user._id}/profileImg` })
         req.user.image = { public_id, secure_url }
         await req.user.save()
-        res.status(200).send({ status: 'success', data: req.user })
+        res.status(200).send({ status: true, data: req.user })
     })
 const loginFunc = errorHandler(
     async (req, res, next) => {
@@ -43,7 +43,7 @@ const loginFunc = errorHandler(
 // profile
 const userProfile = errorHandler(
     async (req, res, next) => {
-        res.status(200).send({ status: 'success', data: req.user })
+        res.status(200).send({ status: true, data: req.user })
     }
 )
 const getUserFunc = errorHandler(
@@ -55,7 +55,7 @@ const getUserFunc = errorHandler(
             return next(error)
         }
 
-        res.status(200).send({ status: 'success', data: user })
+        res.status(200).send({ status: true, data: user })
 
     }
 )
@@ -71,7 +71,7 @@ const getUserByIdFunc = errorHandler(
 
         }
 
-        res.status(200).send({ status: 'success', data: user })
+        res.status(200).send({ status: true, data: user })
 
     }
 )
@@ -90,7 +90,7 @@ const updateUserFunc = errorHandler(
 
         }
         await user.save()
-        res.status(200).send({ status: 'suceess', data: user })
+        res.status(200).send({ status: true, data: user })
 
     }
 )
@@ -105,7 +105,7 @@ const deleteUserFunc = errorHandler(
         }
 
         user.save()
-        res.status(200).send({ status: 'success', data: user })
+        res.status(200).send({ status: true, data: user })
 
     }
 )
@@ -137,7 +137,7 @@ const profileImg = errorHandler(
             { folder: `graduation/user/id_${req.user._id}/profileImg` })
         req.user.image = { public_id, secure_url }
         await req.user.save()
-        res.status(200).send({ status: 'success', data: req.user })
+        res.status(200).send({ status: true, data: req.user })
     })
 const loginFunc = errorHandler(
     async (req, res, next) => {
@@ -155,7 +155,7 @@ const loginFunc = errorHandler(
 // profile
 const userProfile = errorHandler(
     async (req, res, next) => {
-        res.status(200).send({ status: 'success', data: req.user })
+        res.status(200).send({ status: true, data: req.user })
     }
 )
 const getUserFunc = errorHandler(
@@ -167,7 +167,7 @@ const getUserFunc = errorHandler(
             return next(error)
         }
 
-        res.status(200).send({ status: 'success', data: user })
+        res.status(200).send({ status: true, data: user })
 
     }
 )
@@ -183,7 +183,7 @@ const getUserByIdFunc = errorHandler(
 
         }
 
-        res.status(200).send({ status: 'success', data: user })
+        res.status(200).send({ status: true, data: user })
 
     }
 )
@@ -202,7 +202,7 @@ const updateUserFunc = errorHandler(
 
         }
         await user.save()
-        res.status(200).send({ status: 'suceess', data: user })
+        res.status(200).send({ status: true, data: user })
 
     }
 )
@@ -217,7 +217,7 @@ const deleteUserFunc = errorHandler(
         }
 
         user.save()
-        res.status(200).send({ status: 'success', data: user })
+        res.status(200).send({ status: true, data: user })
 
     }
 )
