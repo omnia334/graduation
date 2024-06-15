@@ -1,5 +1,6 @@
 const doctorModel = require('../models/doctor')
 const tasksModel = require('../models/tasks')
+const RaysModel = require('../models/Rays')
 const cloudinary = require('../utils/cloudinary')
 
 const errorHandler = require('../middelware/errorHandler')
@@ -230,6 +231,102 @@ const deleteTasks = errorHandler(
         res.status(200).send({ status: true, data: tasks })
     }
 )
+/////////////////////////////////////////
+const addRays = errorHandler(
+    async (req, res, next) => {
+        const patientId = req.params.id
+        if (!patientId) {
+            const error = appError.Error('patient not exist', 400, 'fail')
+            return next(error)
+        }
+        const add = await RaysModel.create({
+            patientId, ...req.body
+        })
+        if (req.file) {
+            const { public_id, secure_url } = await cloudinary.uploader.upload(req.file.path,
+                { folder: `graduation/user/id_${patientId}/doctor/profileImg` })
+            add.image = { public_id, secure_url }
+        }
+        if (!add) {
+            const error = appError.Error('Ray not added', 400, 'fail')
+            return next(error)
+        }
+        await add.save()
+        res.status(200).send({ status: true, data: add })
+    }
+)
+// all Rays for patient
+
+const getRays = errorHandler(
+    async (req, res, next) => {
+        const patientId = req.params.id
+        if (!patientId) {
+            const error = appError.Error('patient not exist', 400, 'fail')
+            return next(error)
+        }
+        const Rays = await RaysModel.find({
+            patientId
+        })
+        if (!Rays) {
+            const error = appError.Error('Rays not fonded', 400, 'fail')
+            return next(error)
+        }
+        res.status(200).send({ status: true, data: Rays })
+    }
+)
+// get Ray for patient
+const getRay = errorHandler(
+    async (req, res, next) => {
+        const _id = req.params.id
+
+        if (!_id) {
+            const error = appError.Error('no id ', 400, 'fail')
+            return next(error)
+        }
+        const Ray = await RaysModel.findById(_id)
+        if (!Ray) {
+            const error = appError.Error('Ray not fonded', 400, 'fail')
+            return next(error)
+        }
+        res.status(200).send({ status: true, data: Ray })
+    }
+)
+// delete Rays for patient
+const deleteRay = errorHandler(
+    async (req, res, next) => {
+        const _id = req.params.id
+
+        if (!_id) {
+            const error = appError.Error('no id ', 400, 'fail')
+            return next(error)
+        }
+        const Ray = await RaysModel.findByIdAndDelete(_id)
+        if (!Ray) {
+            const error = appError.Error('Ray not fonded', 400, 'fail')
+            return next(error)
+        }
+        res.status(200).send({ status: true, data: Ray })
+    }
+)
+// delete all doctors for patient
+const deleteRays = errorHandler(
+    async (req, res, next) => {
+        const patientId = req.params.id
+        if (!patientId) {
+            const error = appError.Error('patient not exist', 400, 'fail')
+            return next(error)
+        }
+        const Rays = await RaysModel.find({
+            patientId
+        }).deleteMany()
+        if (!Rays) {
+            const error = appError.Error('Rays not fonded', 400, 'fail')
+            return next(error)
+        }
+        res.status(200).send({ status: true, data: Rays })
+    }
+)
+
 module.exports = {
     addDoctor,
     deleteDoctor,
@@ -242,5 +339,10 @@ module.exports = {
     deleteTasks,
     getTask,
     getTasks,
-    updateTask
+    updateTask,
+    addRays,
+    getRays,
+    getRay,
+    deleteRay,
+    deleteRays
 }

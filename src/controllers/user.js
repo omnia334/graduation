@@ -34,8 +34,9 @@ const loginFunc = errorHandler(
             const error = appError.Error('email or password is wrong ', 400, 'fail')
             return next(error)
         }
+        
 
-        res.status(200).send({ status: true, data: { user, token } })
+        res.status(200).send({ status: true, data:  user, token  })
 
     }
 )
@@ -69,6 +70,7 @@ const getUserByIdFunc = errorHandler(
             return next(error)
 
         }
+        
 
         res.status(200).send({ status: true, data: user })
 
