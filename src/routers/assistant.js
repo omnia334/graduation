@@ -14,7 +14,7 @@ const { addDoctor,
     deleteTasks,
     getTask,
     getTasks,
-    updateTask } = require("../controllers/assistant")
+    updateTask,addRays,getRay,getRays,deleteRay,deleteRays} = require("../controllers/assistant")
 const fileUpload = require('../utils/multer')
 // routes of doctor 
 
@@ -39,5 +39,15 @@ router.route('/tasks/:id')
 router.route('/tasks/:id')
     .delete(auth.user, deleteTasks)
     .get(auth.user, getTasks)
+
+// routes of rays
+router.route('/rays/:id')
+    .post(auth.user, fileUpload(fileValidation.image).single('avatar'), addRays)
+    .delete(auth.user, deleteRay)
+    .get(auth.user, getRay)
+
+router.route('/rays/:id')
+    .delete(auth.user, deleteRays)
+    .get(auth.user, getRays)
 
 module.exports = router
