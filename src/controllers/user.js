@@ -1,114 +1,40 @@
+const express = require('express')
+const router = express.Router()
 const User = require('../models/user')
-const errorHandler = require('../middelware/errorHandler')
-const appError = require('../utils/appError')
-const cloudinary = require('../utils/cloudinary')
-// signup function
-const singUpFunc = errorHandler(
-    async (req, res, next) => {
+const { fileValidation } = require('../validations/validations')
+const auth = require('../middelware/auth')
+const { singUpFunc,
+    getUserFunc,
+    getUserByIdFunc,
+    updateUserFunc,
+    deleteUserFunc,
+    loginFunc,
+    userProfile,
+    profileImg,
+    logout,
+    logoutAll
+} = require('../controllers/user')
+const fileUpload = require('../utils/multer')
+// create user
+router.post('/signup', singUpFunc)
+// add profile image
+router.post('/profileImg', auth.user, fileUpload(fileValidation.image).single('avatar'), profileImg)
 
-        const user = new User(req.body)
-        const token = user.createToken()
-        if (!user) {
-            const error = appError.Error('not added user', 400, 'fail')
-            return next(error)
-        }
-        await user.save()
-        
-        res.status(200).send({ status: true, data: { user, token } })
+//get all
+router.get('/users', getUserFunc)
+// user profile
+router.get('/user/profile', auth.user, userProfile)
+//auth.user
+router.get('/user/:id', getUserByIdFunc)
 
-    }
-)
-const profileImg = errorHandler(
-    async (req, res, next) => {
-        const { public_id, secure_url } = await cloudinary.uploader.upload(req.file.path,
-            { folder: `graduation/user/id_${req.user._id}/profileImg` })
-        req.user.image = { public_id, secure_url }
-        await req.user.save()
-        res.status(200).send({ status: true, data: req.user })
-    })
-const loginFunc = errorHandler(
-    async (req, res, next) => {
-        const user = await User.findByCredentials(req.body.email, req.body.password)
-        const token = user.createToken()
-        if (!user) {
-            const error = appError.Error('email or password is wrong ', 400, 'fail')
-            return next(error)
-        }
-        
+// // update
+router.patch('/user', auth.user, updateUserFunc)  //error
+//delete
+router.delete('/user', auth.user, deleteUserFunc)
+router.post('/login', loginFunc)   //error
 
-        res.status(200).send({ status: true, data:  user, token  })
+router.post("/logout", auth.user, logout);
+router.post("/logoutall", auth.user, logoutAll);
 
-    }
-)
-// profile
-const userProfile = errorHandler(
-    async (req, res, next) => {
-        res.status(200).send({ status: true, data: req.user })
-    }
-)
-const getUserFunc = errorHandler(
-    async (req, res, next) => {
-        const user = await User.find()
 
-        if (!user) {
-            const error = appError.Error('no users founded', 400, 'fail')
-            return next(error)
-        }
-
-        res.status(200).send({ status: true, data: user })
-
-    }
-)
-const getUserByIdFunc = errorHandler(
-    async (req, res, next) => {
-
-        const _id = req.params.id
-        const user = await User.findById(_id)
-
-        if (!user) {
-            const error = appError.Error('user not found', 400, 'fail')
-            return next(error)
-
-        }
-        
-
-        res.status(200).send({ status: true, data: user })
-
-    }
-)
-const updateUserFunc = errorHandler(
-    async (req, res, next) => {
-        const updates = Object.keys(req.body)
-
-        const _id = req.user._id
-        const user = await User.findById(_id)
-
-        updates.forEach(el => user[el] = req.body[el])
-
-        if (!user) {
-            const error = appError.Error('not update user', 400, 'fail')
-            return next(error)
-
-        }
-        await user.save()
-        res.status(200).send({ status:true, data: user })
-
-    }
-)
-const deleteUserFunc = errorHandler(
-    async (req, res, next) => {
-        const _id = req.user._id
-        const user = await User.findByIdAndDelete(_id)
-        if (!user) {
-            const error = appError.Error('user not deleted', 400, 'fail')
-            return next(error)
-
-        }
-
-        user.save()
-        res.status(200).send({ status: true, data: user })
-
-    }
-)
-
-module.exports = { singUpFunc, getUserFunc, getUserByIdFunc, updateUserFunc, deleteUserFunc, loginFunc, userProfile, profileImg }
+module.exports = router
