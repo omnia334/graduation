@@ -34,6 +34,9 @@ const userSchema = new mongoose.Schema({
     image: {
         public_id: String, secure_url: String
     },
+    tokens: [{
+        token: { type: String, required: true }
+    }]
 })
 userSchema.pre('save', async function () {
     // this --> document 
