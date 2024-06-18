@@ -13,7 +13,6 @@ const user = async (req, res, next) => {
         res.send(e.message)
     }
 }
-/* // Example of an authentication middleware
 const auth = async (req, res, next) => {
     try {
         const token = req.header('Authorization').replace('Bearer ', '');
@@ -30,7 +29,7 @@ const auth = async (req, res, next) => {
     } catch (error) {
         res.status(401).send({ error: 'Please authenticate.' });
     }
-}; */
+};
 
 
 
