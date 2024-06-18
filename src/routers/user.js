@@ -10,7 +10,9 @@ const { singUpFunc,
     deleteUserFunc,
     loginFunc,
     userProfile,
-    profileImg
+    profileImg,
+    logout,
+    logoutAll
 } = require('../controllers/user')
 const fileUpload = require('../utils/multer')
 // create user
@@ -31,6 +33,8 @@ router.patch('/user', auth.user, updateUserFunc)  //error
 router.delete('/user', auth.user, deleteUserFunc)
 router.post('/login', loginFunc)   //error
 
+router.post("/logout", auth.user, logout);
+router.post("/logoutall", auth.user, logoutAll);
 
 
 module.exports = router

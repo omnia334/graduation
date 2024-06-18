@@ -1,7 +1,14 @@
 const express = require('express')
-const route = express.Router()
+const router = express.Router()
 const auth = require('../middelware/auth')
-const { addAssistant, deleteAssistant } = require('../controllers/patient')
-route.patch('/addAssistant/:id', auth.user, addAssistant)
-route.delete('/deleteAssistant/:id', auth.user, deleteAssistant)
-module.exports = route
+const { fileValidation } = require('../validations/validations')
+const { addAssistant, deleteAssistant,getAssistant,signUpAss,loginAss } = require('../controllers/patient')
+const fileUpload = require('../utils/multer')
+router.patch('/addAssistant/:id', auth.user,fileUpload(fileValidation.image).single('avatar'), addAssistant)
+router.delete('/deleteAssistant/:id', auth.user, deleteAssistant)
+router.get('/getAssistant/:id',auth.user,getAssistant) 
+router.post('/signupAss', signUpAss)
+router.post('/loginAss', loginAss)
+
+
+module.exports = router
