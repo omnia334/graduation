@@ -6,7 +6,7 @@ const { addAssistant, deleteAssistant,getAssistant,signUpAss,loginAss } = requir
 const fileUpload = require('../utils/multer')
 router.patch('/addAssistant/:id', auth.user,fileUpload(fileValidation.image).single('avatar'), addAssistant)
 router.delete('/deleteAssistant/:id', auth.user, deleteAssistant)
-router.get('/getAssistant/:id',auth.user,getAssistant) 
+router.get('/getAssistant',auth.user,getAssistant) 
 router.post('/signupAss', signUpAss)
 router.post('/loginAss', loginAss)
 
