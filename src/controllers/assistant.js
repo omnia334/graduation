@@ -32,41 +32,20 @@ const addDoctor = errorHandler(
     }
 )
 // all doctors for patient
-
 const getDoctors = errorHandler(
     async (req, res, next) => {
-        const patientId = req.params.id
-        if (!patientId) {
-            const error = appError.Error('patient not exist', 400, 'fail')
-            return next(error)
-        }
-        const doctors = await doctorModel.find({
-            patientId
-        })
-        if (!doctors) {
-            const error = appError.Error('doctors not fonded', 400, 'fail')
-            return next(error)
-        }
-        res.status(200).send({ status: true, data: doctors })
-    }
-)
-// get doctor for patient
-const getDoctor = errorHandler(
-    async (req, res, next) => {
-        const _id = req.params.id
+        const doctors = await doctorModel.find()
 
-        if (!_id) {
-            const error = appError.Error('no id ', 400, 'fail')
+        if (!doctors) {
+            const error = appError.Error('no doctor founded', 400, 'fail')
             return next(error)
         }
-        const doctor = await doctorModel.findById(_id)
-        if (!doctor) {
-            const error = appError.Error('doctor not fonded', 400, 'fail')
-            return next(error)
-        }
-        res.status(200).send({ status: true, data: doctor })
+
+        res.status(200).send({ status: true, data: doctors })
+
     }
 )
+
 // delete doctor for patient
 const deleteDoctor = errorHandler(
     async (req, res, next) => {
@@ -144,39 +123,16 @@ const addTasks = errorHandler(
     }
 )
 // all tasks for patient
-
-const getTasks = errorHandler(
+const getTask = errorHandler (
     async (req, res, next) => {
-        const patientId = req.params.id
-        if (!patientId) {
-            const error = appError.Error('patient not exist', 400, 'fail')
-            return next(error)
-        }
-        const tasks = await tasksModel.find({
-            patientId
-        })
-        if (!tasks) {
-            const error = appError.Error('tasks not fonded', 400, 'fail')
-            return next(error)
-        }
+        const tasks = await tasksModel.find()
+            if (!tasks) {
+                const error = appError.Error('no Tasks founded', 400, 'fail')
+                return next(error)
+            }
+    
         res.status(200).send({ status: true, data: tasks })
-    }
-)
-// get task for patient
-const getTask = errorHandler(
-    async (req, res, next) => {
-        const _id = req.params.id
-
-        if (!_id) {
-            const error = appError.Error('no id ', 400, 'fail')
-            return next(error)
-        }
-        const task = await tasksModel.findById(_id)
-        if (!task) {
-            const error = appError.Error('task not fonded', 400, 'fail')
-            return next(error)
-        }
-        res.status(200).send({ status: true, data: task })
+    
     }
 )
 // delete task for patient
@@ -256,24 +212,19 @@ const addRays = errorHandler(
     }
 )
 // all Rays for patient
-
-const getRays = errorHandler(
+const getRays = errorHandler (
     async (req, res, next) => {
-        const patientId = req.params.id
-        if (!patientId) {
-            const error = appError.Error('patient not exist', 400, 'fail')
-            return next(error)
-        }
-        const Rays = await RaysModel.find({
-            patientId
-        })
-        if (!Rays) {
-            const error = appError.Error('Rays not fonded', 400, 'fail')
-            return next(error)
-        }
+        const Rays = await RaysModel.find()
+            if (!Rays) {
+                const error = appError.Error('no Ray founded', 400, 'fail')
+                return next(error)
+            }
+    
         res.status(200).send({ status: true, data: Rays })
+    
     }
 )
+
 // get Ray for patient
 const getRay = errorHandler(
     async (req, res, next) => {
@@ -332,13 +283,11 @@ module.exports = {
     deleteDoctor,
     deleteDoctors,
     updateDoctor,
-    getDoctor,
     getDoctors,
     addTasks,
     deleteTask,
     deleteTasks,
     getTask,
-    getTasks,
     updateTask,
     addRays,
     getRays,

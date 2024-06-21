@@ -89,17 +89,10 @@ const deleteAssistant = errorHandler(
 )
 const getAssistant = errorHandler(
     async (req, res, next) => {
-        const assistantId = req.params.id
-        
-        if (!assistantId) {
-            const error = appError.Error('Assistant not exist', 400, 'fail')
-            return next(error)
-        }
-        const Assistants = await assistantModel.find({
-            assistantId
-        })
+        const Assistants = await assistantModel.find()
+
         if (!Assistants) {
-            const error = appError.Error('Assistant not fonded', 400, 'fail')
+            const error = appError.Error('no assistant founded', 400, 'fail')
             return next(error)
         }
         res.status(200).send({ status: true, data: Assistants })
