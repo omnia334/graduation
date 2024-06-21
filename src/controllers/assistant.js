@@ -9,14 +9,7 @@ const appError = require('../utils/appError')
 // add doctor
 const addDoctor = errorHandler(
     async (req, res, next) => {
-        const patientId = req.params.id
-        if (!patientId) {
-            const error = appError.Error('patient not exist', 400, 'fail')
-            return next(error)
-        }
-
-        const add = await doctorModel.create({
-            patientId, ...req.body
+        const add = await doctorModel.create({ ...req.body
         })
         if (req.file) {
             const { public_id, secure_url } = await cloudinary.uploader.upload(req.file.path,
@@ -101,13 +94,7 @@ const deleteDoctors = errorHandler(
 // add tasks
 const addTasks = errorHandler(
     async (req, res, next) => {
-        const patientId = req.params.id
-        if (!patientId) {
-            const error = appError.Error('patient not exist', 400, 'fail')
-            return next(error)
-        }
-        const add = await tasksModel.create({
-            patientId, ...req.body
+        const add = await tasksModel.create({ ...req.body
         })
         if (req.file) {
             const { public_id, secure_url } = await cloudinary.uploader.upload(req.file.path,
@@ -190,13 +177,7 @@ const deleteTasks = errorHandler(
 /////////////////////////////////////////
 const addRays = errorHandler(
     async (req, res, next) => {
-        const patientId = req.params.id
-        if (!patientId) {
-            const error = appError.Error('patient not exist', 400, 'fail')
-            return next(error)
-        }
-        const add = await RaysModel.create({
-            patientId, ...req.body
+        const add = await RaysModel.create({ ...req.body
         })
         if (req.file) {
             const { public_id, secure_url } = await cloudinary.uploader.upload(req.file.path,

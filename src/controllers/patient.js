@@ -71,7 +71,7 @@ const addAssistant = errorHandler(
         
         res.status(200).send({ status: true, data: addAss })
     }
-)
+) 
 // delete assistant in patieny model
 const deleteAssistant = errorHandler(
     async (req, res, next) => {
